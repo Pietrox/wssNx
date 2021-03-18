@@ -13,12 +13,16 @@
       "targets": {
         "build": {
           "executor": "@nrwl/node:build",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/apps/input",
             "main": "apps/input/src/main.ts",
             "tsConfig": "apps/input/tsconfig.app.json",
-            "assets": ["apps/input/src/assets"]
+            "assets": [
+              "apps/input/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -43,14 +47,151 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/input/**/*.ts"]
+            "lintFilePatterns": [
+              "apps/input/**/*.ts"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/input"],
+          "outputs": [
+            "coverage/apps/input"
+          ],
           "options": {
             "jestConfig": "apps/input/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "compodoc": {
+          "executor": "@twittwer/compodoc:compodoc",
+          "options": {
+            "tsConfig": "apps\\input\\tsconfig.app.json",
+            "outputPath": "dist\\compodoc\\input"
+          },
+          "configurations": {
+            "json": {
+              "exportFormat": "json"
+            }
+          }
+        }
+      }
+    },
+    "first-client": {
+      "root": "apps/first-client",
+      "sourceRoot": "apps/first-client/src",
+      "projectType": "application",
+      "prefix": "first-client",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/apps/first-client",
+            "main": "apps/first-client/src/main.ts",
+            "tsConfig": "apps/first-client/tsconfig.app.json",
+            "assets": [
+              "apps/first-client/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/first-client/src/environments/environment.ts",
+                  "with": "apps/first-client/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "first-client:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/first-client/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/first-client"
+          ],
+          "options": {
+            "jestConfig": "apps/first-client/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "compodoc": {
+          "executor": "@twittwer/compodoc:compodoc",
+          "options": {
+            "tsConfig": "apps\\first-client\\tsconfig.app.json",
+            "outputPath": "dist\\compodoc\\first-client"
+          },
+          "configurations": {
+            "json": {
+              "exportFormat": "json"
+            }
+          }
+        }
+      }
+    },
+    "dto": {
+      "root": "libs/dto",
+      "sourceRoot": "libs/dto/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/dto/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/dto"
+          ],
+          "options": {
+            "jestConfig": "libs/dto/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "statics": {
+      "root": "libs/statics",
+      "sourceRoot": "libs/statics/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/statics/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/statics"
+          ],
+          "options": {
+            "jestConfig": "libs/statics/jest.config.js",
             "passWithNoTests": true
           }
         }
